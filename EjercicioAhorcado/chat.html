@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intento de juego del ahorcado</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        input {
+            width: 30px;
+            text-align: center;
+            margin: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+        }
+        .feedback {
+            font-weight: bold;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>AHORCADO</h1>
+    <form id="hangmanForm">
+        <div>
+            <!-- Use different IDs for each input field -->
+            <input id="letter1" type="text" name="texto" readonly>
+            <input id="letter2" type="text" name="texto" readonly>
+            <input id="letter3" type="text" name="texto" readonly>
+            <input id="letter4" type="text" name="texto" readonly>
+            <input id="letter5" type="text" name="texto" readonly>
+        </div>
+        <div>
+            Letra: <input id="guess" type="text" name="texto">
+            <span><button type="button" onclick="checkGuess()">Probar</button></span>
+        </div>
+        <div>
+            <button type="button" onclick="restartGame()">Reiniciar</button>
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <div class="feedback" id="chances">Oportunidades restantes: 6</div>
+    </form>
+
+    <script>
+        // Add your JavaScript logic here
+
+        var correctWord = "apple"; // Replace with your word
+        var remainingChances = 6;
+
+        // Function to check the guessed letter
+        function checkGuess() {
+            var guessedLetter = document.getElementById("guess").value.toLowerCase();
+
+            // Add logic to compare guessedLetter with the correct letters in the word
+            var isCorrect = updateWord(guessedLetter);
+
+            // Display feedback
+            displayFeedback(isCorrect);
+            updateChances(isCorrect);
+        }
+
+        // Function to update the displayed word
+        function updateWord(guessedLetter) {
+            var correctLetters = correctWord.split("");
+            var isCorrect = false;
+
+            for (var i = 0; i < correctLetters.length; i++) {
+                var inputElement = document.getElementById("letter" + (i + 1));
+
+                if (correctLetters[i] === guessedLetter) {
+                    inputElement.value = guessedLetter;
+                    isCorrect = true;
+                }
+            }
+
+            return isCorrect;
+        }
+
+        // Function to display feedback
+        function displayFeedback(isCorrect) {
+            var feedbackElement = document.getElementById("feedback");
+            feedbackElement.innerHTML = isCorrect ? "BIEN" : "MAL";
+
+            // Apply styling based on correctness
+            feedbackElement.className = isCorrect ? "feedback correct" : "feedback incorrect";
+        }
+
+        // Function to update remaining chances
+        function updateChances(isCorrect) {
+            var chancesElement = document.getElementById("chances");
+
+            if (!isCorrect) {
+                remainingChances--;
+            }
+
+            chancesElement.textContent = "Oportunidades restantes: " + remainingChances;
+
+            // Add logic to handle the end of the game if remainingChances reach 0
+            if (remainingChances === 0) {
+                chancesElement.textContent = "¡Perdiste! Reinicia el juego.";
+                disableInputAndButton();
+            }
+        }
+
+        // Function to restart the game
+        function restartGame() {
+            // Add logic to reset the game, reset the word, and update the UI accordingly
+            correctWord = "apple"; // Replace with your word
+            remainingChances = 6;
+            document.getElementById("hangmanForm").reset();
+            enableInputAndButton();
+            document.getElementById("chances").textContent = "Oportunidades restantes: " + remainingChances;
+        }
+
+        // Function to disable input and button when the game is over
+        function disableInputAndButton() {
+            document.getElementById("guess").disabled = true;
+            document.querySelector("button").disabled = true;
+        }
+
+        // Function to enable input and button for a new game
+        function enableInputAndButton() {
+            document.getElementById("guess").disabled = false;
+            document.querySelector("button").disabled = false;
+        }
+    </script>
+</body>
+</html>

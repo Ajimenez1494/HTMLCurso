@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intento de juego del ahorcado</title>
+</head>
+<style>
+   
+</style>
+<script>
+let respuestaCorrecta="bolsa";
+let intentos= 5;
+function verificar(){
+ let introducido= document.getElementById("introducido").value.toUpperCase();
+ let esCorrecto="";
+}
+</script>
+<body>
+    <h1>AHORCADO</h1>
+    <form>
+<div><input id="letra1" type="text" name="texto" readonly>
+    <input id="letra2" type="text" name="texto" readonly>
+    <input id="letra3" type="text" name="texto" readonly>
+    <input id="letra4" type="text" name="texto" readonly>
+    <input id="letra5" type="text" name="texto" readonly>
+//Hacer una comprobacion de si el valor introducido coincide con el asignado a cada input y si es asi cambiarlo y que se imprima en el texto
+//Tienen que ser de solo lectura
+</div>
+<div>Letra:<input id="introducido" type="text" name="texto"> <span><button>Probar</button></span></div>
+<div><button>Reiniciar</button></div>
+//Tiene que aparecer BIEN en verde o MAL en rojo, si la letra introducir coincide con el valor de los otros cuadros
+//Oportunidades que quedan, igual puedo plantearlo como un switch dentro de un for
+ en el que el numero que vaya bajando equivalga a las oportunidades que quedan
+    </form>
+</body>
+</html>
